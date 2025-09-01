@@ -1,0 +1,16 @@
+{
+  "cities": [
+    {
+      "id": "34ef",
+      "cityName": "Hyderabad",
+      "country": "India",
+      "date": "2025-09-01T07:31:36.151Z",
+      "notes": "",
+      "emoji": "🇮🇳",
+      "position": {
+        "lat": "17.43190557694072",
+        "lng": "78.50312411785127"
+      }
+    }
+  ]
+}
