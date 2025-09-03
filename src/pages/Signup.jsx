@@ -1,6 +1,6 @@
 import styles from "./Login.module.css";
 import PageNav from "../components/PageNav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
@@ -11,7 +11,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { signup, isAuthenticated, error } = useAuth();
+  const { signup, error } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
