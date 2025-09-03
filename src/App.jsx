@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { CitiesProvider } from "./contexts/CitiesContext";
-import { AuthProvider } from "./contexts/FakeAuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import CityList from "./components/CityList";
 //import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import Form from "./components/Form";
 import City from "./components/City";
 import SpinnerFullPage from "./components/SpinnerFullPage";
 import { lazy, Suspense } from "react";
+import Signup from "./pages/Signup";
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Homepage = lazy(() => import("./pages/Homepage"));
 const Product = lazy(() => import("./pages/Product"));
@@ -42,6 +43,7 @@ export default function App() {
               </Route>
 
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
               <Route path="pricing" element={<Pricing />} />
               <Route path="*" element={<PageNotFound />} />

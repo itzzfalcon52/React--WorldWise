@@ -5,35 +5,38 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Message from "../components/Message";
-import { Link } from "react-router-dom";
 
-export default function Login() {
-  // PRE-FILL FOR DEV PURPOSES
-  const [email, setEmail] = useState("j");
+export default function Signup() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { login, isAuthenticated, error } = useAuth();
+  const { signup, isAuthenticated, error } = useAuth();
   const navigate = useNavigate();
 
-  async function handlesubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (email && password) await login(email, password);
+    if (!email || !password) return;
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const success = await signup(email, password);
+
+    if (success) {
+      alert(
+        "Signup successful! Please check your email to confirm, then log in."
+      );
+      navigate("/login");
+    }
   }
-  async function handleDemoLogin() {
-    await login("test@example.com", "12345678");
-  }
-  useEffect(
-    function () {
-      if (isAuthenticated === true) navigate("/app", { replace: true });
-    },
-    [isAuthenticated, navigate]
-  );
 
   return (
     <main className={styles.login}>
       <PageNav />
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
           <input
@@ -41,6 +44,7 @@ export default function Login() {
             id="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            required
           />
         </div>
 
@@ -51,26 +55,25 @@ export default function Login() {
             id="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            required
           />
         </div>
+
+        <div className={styles.row}>
+          <label htmlFor="confirm">Confirm password</label>
+          <input
+            type="password"
+            id="confirm"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
+            required
+          />
+        </div>
+
         {error && <Message message={error} />}
 
         <div>
-          <Button type="primary" onClick={handlesubmit}>
-            Login
-          </Button>
-        </div>
-        <div className={styles.switch}>
-          <p>
-            New here?
-            <span className={styles.anchor}>
-              <Link to="/signup">Sign up</Link>
-            </span>
-          </p>
-          <p style={{ fontSize: "28px" }}>OR</p>
-          <Button type="primary" onClick={handleDemoLogin}>
-            Continue with Demo Account
-          </Button>
+          <Button type="primary">Sign Up</Button>
         </div>
       </form>
     </main>

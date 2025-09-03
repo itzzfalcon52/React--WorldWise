@@ -24,3 +24,41 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+.switch {
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-light--2);
+
+  background: var(--color-dark--2);
+  border: 1px solid var(--color-dark--0);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.switch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.anchor {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.anchor a {
+  color: #ff6b6b;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.anchor a:hover {
+  color: #ff8787;
+  text-decoration: underline;
+}
