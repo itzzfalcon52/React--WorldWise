@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-
+import { supabase } from "../SupabaseAuth";
 const CitiesContext = createContext();
 
 function CitiesProvider({ children }) {
@@ -17,9 +17,12 @@ function CitiesProvider({ children }) {
     async function fetchCities() {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8000/cities");
-        const data = await res.json();
+        const { data, error } = await supabase
+          .from("cities")
+          .select("*")
+          .order("created_at", { ascending: true });
         setCities(data);
+        if (error) throw error;
       } catch (err) {
         console.error(err);
       } finally {
@@ -32,8 +35,13 @@ function CitiesProvider({ children }) {
   const getCity = useCallback(async (id) => {
     try {
       setIsLoading(true);
-      const res = await fetch(`http://localhost:8000/cities/${id}`);
-      const data = await res.json();
+      setIsLoading(true);
+      const { data, error } = await supabase
+        .from("cities")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
       setCurrentCity(data);
     } catch (err) {
       console.error(err);
@@ -44,13 +52,21 @@ function CitiesProvider({ children }) {
   async function createCity(newCity) {
     try {
       setIsLoading(true);
-      const res = await fetch(`http://localhost:8000/cities`, {
-        method: "POST",
-        body: JSON.stringify(newCity),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      setCities((cities) => [...cities, data]);
+      const { data, error } = await supabase
+        .from("cities")
+        .insert([
+          {
+            cityName: newCity.cityName,
+            country: newCity.country,
+            emoji: newCity.emoji,
+            notes: newCity.notes,
+            position: newCity.position,
+            visited_at: newCity.visited_at,
+          },
+        ])
+        .select(); // return inserted row with auto-generated id
+      if (error) throw error;
+      setCities((cities) => [...cities, data[0]]);
     } catch (err) {
       console.error(err);
     } finally {
@@ -61,10 +77,8 @@ function CitiesProvider({ children }) {
   async function deleteCity(id) {
     try {
       setIsLoading(true);
-      await fetch(`http://localhost:8000/cities/${id}`, {
-        method: "DELETE",
-      });
-      //const data = await res.json();
+      const { error } = await supabase.from("cities").delete().eq("id", id);
+      if (error) throw error;
       setCities((cities) => cities.filter((city) => city.id !== id));
     } catch (err) {
       console.error(err);

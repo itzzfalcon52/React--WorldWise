@@ -70,15 +70,23 @@ function Form() {
     //we make this async as we want to navigate after the create city which is async is done
     e.preventDefault();
     if (!cityName || !date) return;
+    if (!formLat || !formLng) {
+      setGeoError("Click on the map to select a city first!");
+      return;
+    }
     const newCity = {
       cityName,
       country,
-      date,
       notes,
       emoji,
       position: { lat: formLat, lng: formLng },
+      visited_at: date.toISOString().split("T")[0],
     };
     //console.log(newCity);
+    console.log("newCity", {
+      ...newCity,
+      visited_at: date.toISOString(),
+    });
     await createCity(newCity);
     navigate("/app/cities");
   }
@@ -115,7 +123,7 @@ function Form() {
           id="date"
           onChange={(date) => setDate(date)}
           selected={date}
-          dateformat="dd/MM/yyyy"
+          dateFormat="dd/MM/yyyy"
         ></DatePicker>
       </div>
 
