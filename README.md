@@ -3,7 +3,7 @@
 WorldWise is a travel tracking web app where you can keep a record of the cities you’ve visited around the world.  
 It provides an interactive map, date picker, and notes feature — all tied together with a smooth React experience.
 
-## ![WorldWise Demo](https://trackwithworldwise.netlify.app/)
+👉 **Live Demo:** [WorldWise on Netlify](https://trackwithworldwise.netlify.app/)
 
 ---
 
@@ -23,7 +23,11 @@ It provides an interactive map, date picker, and notes feature — all tied toge
 ## ✨ Features
 
 - 🏠 **Landing Page** – Welcoming page introducing the app.
-- 🔑 **Fake Login Authorization** – Simple authentication flow for demo purposes.
+- 🔑 **User Authentication (Supabase)** –
+  - Signup with email & password (with email confirmation).
+  - Secure login & logout flow.
+  - Persistent user sessions across refresh.
+  - Demo account available for quick app exploration.
 - 🗺️ **Interactive Map** – Built with [React Leaflet](https://react-leaflet.js.org/).
   - Click on the map to select a city.
   - Add a travel date and personal notes.
@@ -39,6 +43,7 @@ It provides an interactive map, date picker, and notes feature — all tied toge
 - **Routing:** [React Router](https://reactrouter.com/)
 - **State Management:** Context API
 - **Map Library:** [React Leaflet](https://react-leaflet.js.org/)
+- **Backend & Auth:** [Supabase](https://supabase.com/) (authentication, session handling)
 - **Deployment:** [Netlify](https://www.netlify.com/)
 
 ---
@@ -68,6 +73,28 @@ git clone https://github.com/your-username/worldwise-app.git
 cd worldwise-app
 ```
 
+###2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+###3️⃣ Setup Supabase
+-Create a free project at Supabase
+-Copy your Project URL and Anon Public Key.
+-Create a .env file in the root directory and add:
+
+```bash
+VITE_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
+
+###4️⃣ Run locally
+
+```bash
+npm run dev
+```
+
 ## 🔧 Scripts
 
 -npm run dev – Start Vite dev server
@@ -86,11 +113,14 @@ The app is deployed on **Netlify**.
 
 ## 📌 Future Improvements
 
-- 🔒 Implement real authentication system
-- 🗃️ Connect to a real backend or cloud database
+- 🗃️ replace JSON file with supabase tables
 - 📱 Improve mobile responsiveness
 - 📊 Add travel statistics (total trips, countries visited, etc.)
 
 ## 👨‍💻 Author
 
 Developed with ❤️ by [Hussain Kagalwala](https://www.linkedin.com/in/hussain-kagalwala-467a77328/)
+
+```
+
+```
